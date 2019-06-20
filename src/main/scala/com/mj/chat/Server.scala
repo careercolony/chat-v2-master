@@ -35,6 +35,7 @@ object Server extends App {
   implicit val materializer: ActorMaterializer = ActorMaterializer()
 
   val createMuteProcessor = system.actorOf(RoundRobinPool(poolSize).props(Props[processor.mute.CreateMuteProcessor]), "createMuteProcessor")
+  val removeMuteProcessor = system.actorOf(RoundRobinPool(poolSize).props(Props[processor.mute.RemoveMuteProcessor]), "removeMuteProcessor")
 
 
 

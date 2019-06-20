@@ -6,12 +6,12 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
 import com.mj.chat.route.notification.NotificationService
-import com.mj.chat.route.notification.mute.CreateMuteRoute
+import com.mj.chat.route.mute.{CreateMuteRoute, RemoveMuteRoute}
 import org.joda.time.DateTime
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object RouteUtils extends NotificationService with CreateMuteRoute{
+object RouteUtils extends NotificationService with CreateMuteRoute with RemoveMuteRoute{
   def badRequest(request: HttpRequest): StandardRoute = {
     val method = request.method.value.toLowerCase
     val path = request.getUri().path()
@@ -73,7 +73,7 @@ object RouteUtils extends NotificationService with CreateMuteRoute{
                 system: ActorSystem,
                 materializer: ActorMaterializer) = {
     /*routeLogic ~*/
-    routeWebsocket ~ createMute(system)
+    routeWebsocket ~ createMute(system) ~ removeMute(system)
       extractRequest { request =>
         badRequest(request)
       }

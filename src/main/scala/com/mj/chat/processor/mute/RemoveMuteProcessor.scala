@@ -6,11 +6,11 @@ import akka.actor.Actor
 import akka.util.Timeout
 import com.mj.chat.config.MessageConfig
 import com.mj.chat.model.{MuteDto, responseMessage}
-import com.mj.chat.mongo.MongoLogic.insertMute
+import com.mj.chat.mongo.MongoLogic.removeMute
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class CreateMuteProcessor extends Actor with MessageConfig {
+class RemoveMuteProcessor extends Actor with MessageConfig {
 
   implicit val timeout = Timeout(500, TimeUnit.SECONDS)
 
@@ -19,7 +19,7 @@ class CreateMuteProcessor extends Actor with MessageConfig {
 
     case (muteDto: MuteDto) => {
       val origin = sender()
-      val result = insertMute(muteDto).map(resp => origin ! responseMessage("", "", "create mute success"))
+      val result = removeMute(muteDto).map(resp => origin ! responseMessage("", "", "remove mute success"))
 
 
 

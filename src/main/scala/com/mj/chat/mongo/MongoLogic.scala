@@ -687,14 +687,14 @@ object MongoLogic {
       mute <- findCollectionOne[Mute](mutesCollection,
                                       document("from" -> muteDto.from, "to" -> muteDto.to))
 
-      res <- if (mute._id.isEmpty)
+      response <- if (mute._id.isEmpty)
         insert[Mute](mutesCollection, Mute("", muteDto.from, muteDto.to))
       else Future{Mute("",muteDto.from,muteDto.to)}
-    } yield res
+    } yield response
   }
 
-  def removeMute(from: String, to: String): Future[UpdateResult] = {
-    removeCollection(mutesCollection, document("from" -> from, "to" -> to))
+  def removeMute(muteDto: MuteDto): Future[UpdateResult] = {
+    removeCollection(mutesCollection, document("from" -> muteDto.from, "to" -> muteDto.to))
   }
 
   def isMute(from: String, sessionid: String): Future[Boolean] = {
