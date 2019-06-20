@@ -7,7 +7,7 @@ import akka.http.scaladsl.model.ws.{Message, TextMessage}
 import akka.stream._
 import akka.stream.scaladsl._
 import com.mj.chat.model._
-import com.mj.chat.notification.ChatSessionActor
+
 import com.mj.chat.tools.CommonUtils._
 import play.api.libs.json.Json
 

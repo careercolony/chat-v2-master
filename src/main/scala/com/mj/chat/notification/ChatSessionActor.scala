@@ -1,15 +1,17 @@
 package com.mj.chat.notification
 
+import java.util.concurrent.Executors
+
 import akka.actor.ActorRef
 import akka.cluster.pubsub.{DistributedPubSub, DistributedPubSubMediator}
 import com.mj.chat.model._
 import com.mj.chat.mongo.MongoLogic.{isMute, _}
 import com.mj.chat.tools.CommonUtils._
 
+import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
+
 class ChatSessionActor extends TraitPubSubActor {
   val system = context.system
-
-  import system.dispatcher
 
   import DistributedPubSubMediator._
 

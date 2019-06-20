@@ -4,14 +4,14 @@ import akka.actor.ActorRef
 import akka.cluster.pubsub.{DistributedPubSub, DistributedPubSubMediator}
 import com.mj.chat.model.{UserOffline, WsTextDown, _}
 import com.mj.chat.mongo.MongoLogic._
-
+import scala.concurrent.ExecutionContext.global
 import scala.concurrent.Future
 
 class PushSessionActor extends TraitPubSubActor {
   val system = context.system
 
   import DistributedPubSubMediator._
-  import system.dispatcher
+
 
   val mediator = DistributedPubSub(context.system).mediator
 
